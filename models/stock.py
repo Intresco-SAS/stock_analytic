@@ -25,18 +25,15 @@ class StockMove(models.Model):
             qty, cost, credit_account_id, debit_account_id, description
         )
         for line in res:
-            if (
-                line[2]["account_id"]
-                != self.product_id.categ_id.property_stock_valuation_account_id.id
-            ):
-                # Add analytic account in debit line
-                if self.analytic_account_id:
-                    line[2].update({"analytic_account_id": self.analytic_account_id.id})
-                # Add analytic tags in debit line
-                if self.analytic_tag_ids:
-                    line[2].update(
-                        {"analytic_tag_ids": [(6, 0, self.analytic_tag_ids.ids)]}
-                    )
+
+            # Add analytic account in debit line
+            if self.analytic_account_id:
+                line[2].update({"analytic_account_id": self.analytic_account_id.id})
+            # Add analytic tags in debit line
+            if self.analytic_tag_ids:
+                line[2].update(
+                    {"analytic_tag_ids": [(6, 0, self.analytic_tag_ids.ids)]}
+                )
         return res
 
     @api.model
