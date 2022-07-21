@@ -17,7 +17,8 @@ class StockMove(models.Model):
     )
     analytic_tag_ids = fields.Many2many("account.analytic.tag", string="Analytic Tags")
 
-    def _prepare_account_move_line(
+    #SE REMUEVE CUENTA ANALITICA EN MOVIMIENTO DE INVENTARIO YA QUE NO SE TIENE CLARO ESTE PASO.
+    '''def _prepare_account_move_line(
         self, qty, cost, credit_account_id, debit_account_id, description
     ):
         self.ensure_one()
@@ -34,7 +35,7 @@ class StockMove(models.Model):
                 line[2].update(
                     {"analytic_tag_ids": [(6, 0, self.analytic_tag_ids.ids)]}
                 )
-        return res
+        return res'''
 
     @api.model
     def _prepare_merge_moves_distinct_fields(self):
